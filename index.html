@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JAMAR’S JOURNEY — 8-Bit Space Adventure</title>
+<style>
+:root{--bg:#000;--panel:#080808;--green:#7cff00;--white:#f0f0f0;--yellow:#fff000;--red:#ff3434}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#000;color:#eee;font-family:"Courier New",monospace;display:flex;align-items:center;justify-content:center;padding:12px}
+.shell{width:min(100%,560px)}.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px}.brand{font-size:clamp(17px,4vw,25px);font-weight:900;letter-spacing:1px;color:#fff}.tag{font-size:10px;color:#aaa;letter-spacing:1px}.cabinet{background:#000;border:4px solid #777;border-radius:0;padding:8px;box-shadow:none}.hud{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;background:#000;padding:7px 4px;margin-bottom:7px;border:1px solid #555;font-size:11px}.hud span{color:var(--green)}.stage{position:relative;width:100%;aspect-ratio:7/8;max-height:72vh;background:#02030b;overflow:hidden;border:1px solid #555;touch-action:none}canvas{display:block;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none}.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;background:radial-gradient(ellipse at 50% 42%,rgba(21,48,106,.46),transparent 48%),radial-gradient(ellipse at 50% 110%,rgba(111,18,105,.22),transparent 55%),#02030b;overflow:hidden}.overlay::before{content:"";position:absolute;left:50%;top:22%;width:min(84%,340px);height:31%;transform:translateX(-50%);background:linear-gradient(180deg,#a4d8ff 0%,#4268b8 23%,#172449 53%,#090c1c 100%);clip-path:polygon(50% 0,59% 22%,83% 35%,100% 66%,72% 61%,62% 78%,38% 78%,28% 61%,0 66%,17% 35%,41% 22%);filter:drop-shadow(0 0 12px #408cff);opacity:.76;animation:shipfloat 4s ease-in-out infinite}.overlay::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#70bfff 1px,transparent 1.5px),radial-gradient(#a4a4ff 1px,transparent 1.5px);background-size:37px 43px,61px 71px,89px 83px;background-position:4px 8px,18px 29px,35px 17px;opacity:.55;animation:starscroll 14s linear infinite}.overlay.hidden{display:none}.box{position:relative;z-index:1;max-width:330px;margin-top:32%;}.pixel-title{font-size:clamp(25px,7.5vw,43px);font-weight:1000;line-height:1.02;color:#fff;margin:0 0 12px;letter-spacing:1px;text-transform:uppercase;-webkit-text-stroke:1px #b9e7ff;text-shadow:1px 1px 0 #8edcff,2px 2px 0 #4c82db,3px 3px 0 #234c9d,4px 4px 0 #14265b,6px 7px 0 #050712,0 0 15px #3a8bff;filter:drop-shadow(0 0 5px #286aff)}@keyframes shipfloat{0%,100%{margin-top:0}50%{margin-top:7px}}@keyframes starscroll{from{background-position:4px 8px,18px 29px,35px 17px}to{background-position:4px 180px,18px 240px,35px 130px}}.subtitle{font-size:11px;color:#d9e8ff;line-height:1.8;margin-bottom:18px;text-shadow:1px 1px #000}.creator-credit{position:relative;z-index:2;margin-top:12px;font-size:9px;letter-spacing:2px;color:#8ba8d8;text-transform:uppercase;text-shadow:0 0 8px rgba(78,145,255,.45)}.btn{font:inherit;font-size:12px;font-weight:bold;letter-spacing:1px;background:#ddd;color:#000;border:2px solid #fff;border-radius:0;padding:10px 16px;cursor:pointer;box-shadow:3px 3px 0 #555}.btn:hover{background:#fff}.help{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#aaa;font-size:10px;padding:10px 2px 2px}.help b{color:#fff}.sound-controls{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;padding:7px 0 2px;font-size:10px;color:#aaa}.sound-btn{font:inherit;font-size:10px;font-weight:bold;background:#111;color:#7cff00;border:1px solid #777;border-radius:0;padding:6px 9px;cursor:pointer}.sound-btn.off{color:#ff3434;border-color:#ff3434}.mobile{display:none;justify-content:center;gap:7px;margin-top:10px}.mobile button{width:48px;height:42px;background:#111;color:white;border:2px solid #777;border-radius:0;font-size:18px;touch-action:none}.mobile .fire{width:72px;color:#000;background:#ddd;font-size:11px;font-weight:bold}@media(max-width:650px){body{padding:5px;align-items:flex-start;min-height:100dvh}.shell{width:100%;max-width:560px}.cabinet{padding:4px}.mobile{display:flex;gap:6px;margin-top:8px}.mobile button{flex:1;min-width:0;height:46px;font-size:20px;padding:0}.mobile .fire{flex:1.35;font-size:9px;line-height:1.05}.help{font-size:9px;justify-content:center}.stage{aspect-ratio:7/8;max-height:58dvh;min-height:280px}.hud{font-size:10px}.box{margin-top:32%;max-width:95%}.pixel-title{font-size:clamp(25px,8vw,40px)}.subtitle{font-size:10px;margin-bottom:13px}.btn{padding:10px 12px}}@media(orientation:landscape) and (max-height:520px){body{align-items:flex-start}.shell{max-width:760px}.stage{aspect-ratio:7/5;max-height:55vh}.mobile{margin-top:4px}.mobile button{height:38px}.box{margin-top:7%;}.overlay::before{top:9%;height:32%}.pixel-title{font-size:clamp(22px,5vw,32px)}.subtitle{font-size:9px;line-height:1.45;margin-bottom:8px}}
+.creator-inline{color:#8ba8d8;letter-spacing:1px;font-size:.92em;white-space:nowrap}@media(max-width:650px){.tag{font-size:9px}.creator-inline{font-size:8px;letter-spacing:.35px}}@media(max-width:380px){.tag{font-size:8px}.creator-inline{font-size:7px;letter-spacing:0}} </style></head>
+<body><main class="shell"><header class="top"><div><div class="brand">JAMAR’S JOURNEY</div><div class="tag">★ 8-BIT SPACE ADVENTURE <span class="creator-inline">· MADE BY JUN SEOB HAN</span> ★</div></div><div class="tag">FREE PLAY · 1 LIFE</div></header><section class="cabinet"><div class="hud"><div>SCORE <span id="score">000000</span></div><div>STAGE <span id="stageNum">01</span></div><div>LIVES <span id="lives">1</span></div><div>BEST <span id="best">000000</span></div></div><div class="stage"><canvas id="game" width="224" height="256" aria-label="Jamar’s Journey game screen"></canvas><div id="overlay" class="overlay"><div class="box"><h1 class="pixel-title" id="overlayTitle">JAMAR’S<br>JOURNEY</h1><div class="subtitle" id="overlayText">A PIXEL SPACE ODYSSEY<br><br>ARROWS / WASD: MOVE<br>TOUCH & DRAG ON MOBILE<br>AUTO-FIRE: ALWAYS ON<br><br>ONE SHIP. ONE LIFE.<br>ONE HIT = GAME OVER.<br><br>MID-BOSSES: UP TO 2<br>MEGA SHIP: UP TO 1</div><button id="startBtn" class="btn">▶ START GAME</button></div></div></div><div class="mobile"><button data-key="ArrowLeft">◀</button><button data-key="ArrowUp">▲</button><button data-key="ArrowDown">▼</button><button data-key="ArrowRight">▶</button><button class="fire" aria-label="Automatic firing enabled" disabled>AUTO<br>FIRE</button></div><div class="sound-controls"><button id="musicBtn" class="sound-btn">MUSIC: ON</button><button id="sfxBtn" class="sound-btn">SFX: ON</button><span>MASTER MUTE: <b>M</b></span></div><div class="help"><span><b>MOVE</b> ← ↑ ↓ → / WASD</span><span><b>FIRE</b> AUTO</span><span>PAUSE <b>P</b> · MASTER MUTE <b>M</b></span></div></section></main>
+<script>
+(()=>{'use strict';
+const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+const $=id=>document.getElementById(id);const W=canvas.width,H=canvas.height;
+let mode='menu',keys={},player,bullets,enemies,enemyShots,particles,score,lives,stage,frame,spawnTimer,invuln,patternClock=0,patternIndex=0,patternWarning=0,best=Number(localStorage.getItem('jamarsJourneyBest')||0),muted=false,audioCtx=null,musicEnabled=true,sfxEnabled=true,musicStep=0,musicTimer=null,enemyIdCounter=1;
+$('best').textContent=fmt(best);
+function fmt(n){return String(n).padStart(6,'0')}
+function getAudio(){try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}catch(e){return null}}
+function tone(freq,duration=.08,type='square',volume=.025,when=0){if(muted||!getAudio())return;try{const t=audioCtx.currentTime+when,o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(Math.max(.0001,volume),t);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.01)}catch(e){}}
+function noise(duration=.07,volume=.018,when=0){if(muted||!getAudio())return;try{const t=audioCtx.currentTime+when,n=Math.max(1,Math.floor(audioCtx.sampleRate*duration)),buf=audioCtx.createBuffer(1,n,audioCtx.sampleRate),data=buf.getChannelData(0);for(let i=0;i<n;i++)data[i]=(Math.random()*2-1)*(1-i/n);const src=audioCtx.createBufferSource(),g=audioCtx.createGain();src.buffer=buf;g.gain.setValueAtTime(volume,t);g.gain.exponentialRampToValueAtTime(.0001,t+duration);src.connect(g);g.connect(audioCtx.destination);src.start(t);src.stop(t+duration)}catch(e){}}
+function sound(freq=440,duration=.07,type='square',volume=.035){if(!sfxEnabled)return;tone(freq,duration,type,volume)}
+// Original looping arcade chiptune: relentless square-wave lead, triangle bass and tiny noise drums.
+const lead=[659,0,784,988,784,659,523,0,587,0,698,880,698,587,494,0,659,784,988,1175,988,784,659,523,587,698,880,1047,880,698,587,494];
+const bass=[82.41,82.41,110,110,73.42,73.42,98,98,65.41,65.41,87.31,87.31,73.42,73.42,98,98];
+function musicTick(){if(mode!=='playing'||!musicEnabled||muted||!getAudio())return;const step=musicStep%32,t=0;const n=lead[step];if(n)tone(n,.075,'square',.012,t);if(step%2===0){const arp=[1318,1568,1760,1568,1175,1397,1568,1397];tone(arp[(step/2)%arp.length],.045,'square',.006,t+.025)}if(step%4===0)tone(bass[(step/4)%bass.length],.15,'triangle',.028,t);if(step%8===0){tone(110,.07,'square',.018,t);noise(.045,.012,t)}else if(step%8===4)noise(.035,.008,t);musicStep++;}
+function startMusic(){getAudio();if(musicTimer===null)musicTimer=setInterval(musicTick,105);musicStep=0;}
+function updateSoundButtons(){$('musicBtn').textContent='MUSIC: '+(musicEnabled?'ON':'OFF');$('sfxBtn').textContent='SFX: '+(sfxEnabled?'ON':'OFF');$('musicBtn').classList.toggle('off',!musicEnabled);$('sfxBtn').classList.toggle('off',!sfxEnabled)}
+function reset(){enemyIdCounter=1;score=0;lives=1;stage=1;frame=0;spawnTimer=0;invuln=70;patternClock=0;patternIndex=0;patternWarning=0;player={x:W/2,y:H-20,w:9,h:8,speed:2,cooldown:0};bullets=[];enemies=[];enemyShots=[];particles=[];keys={};mode='playing';$('overlay').classList.add('hidden');hud();startMusic();sound(660,.1);tone(990,.06,'square',.014,.08);}
+function hud(){$('score').textContent=fmt(score);$('stageNum').textContent=String(stage).padStart(2,'0');$('lives').textContent=lives>0?'1':'0';$('best').textContent=fmt(best)}
+function showOverlay(title,text,button){$('overlayTitle').innerHTML=title;$('overlayText').innerHTML=text;$('startBtn').textContent=button;$('overlay').classList.remove('hidden')}
+function endGame(){mode='over';if(score>best){best=score;localStorage.setItem('jamarsJourneyBest',best)}hud();sound(130,.45,'sawtooth');sound(98,.5,'square',.025);noise(.28,.04);showOverlay('GAME<br>OVER',`FINAL SCORE: ${fmt(score)}<br>BEST SCORE: ${fmt(best)}<br><br>THE ARCADE SHOWS NO MERCY.`,'↻ PLAY AGAIN');}
+function spawnWave(){
+ // Always spawn the ordinary formation. Bosses join the wave instead of replacing it.
+ enemies=[];enemyShots=[];
+ let cols=Math.min(8,5+Math.floor((stage-1)/2)),rows=Math.min(3,2+Math.floor(stage/4)),startX=(W-(cols*25-8))/2;
+ for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)enemies.push({id:enemyIdCounter++,x:startX+c*25,y:38+r*22,homeX:startX+c*25,homeY:38+r*22,w:7,h:6,hp:1,type:r%3,phase:Math.random()*6.28,alive:true});
+ if(stage%5===0){
+   // One screen-dominating dreadnought joins the normal enemies.
+   enemies.push({id:enemyIdCounter++,x:W/2,y:42,homeX:W/2,homeY:42,w:76,h:42,hp:180,maxHp:180,type:3,phase:0,alive:true,boss:true,bossType:'large',shotTimer:0,pattern:0,damageFlash:0});
+ }else if(stage%3===0){
+   // Up to two slower heavy cruisers join the normal enemies.
+   for(let i=0;i<2;i++) enemies.push({id:enemyIdCounter++,x:i===0?58:W-58,y:39,homeX:i===0?58:W-58,homeY:39,w:40,h:24,hp:46,maxHp:46,type:3,phase:i*2.7,alive:true,boss:true,bossType:'mid',shotTimer:i*23,pattern:i%6,damageFlash:0});
+ }
+ spawnTimer=0;
+}
+function burst(x,y,color,n=8){for(let i=0;i<n;i++)particles.push({x,y,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*4,life:18+Math.random()*16,color,size:1+Math.random()*2})}
+function hit(a,b){return Math.abs(a.x-b.x)<(a.w+b.w)/2&&Math.abs(a.y-b.y)<(a.h+b.h)/2}
+function bossPattern(e){
+ const cx=e.x,cy=e.y+Math.floor(e.h*.34),large=e.bossType==='large';
+ // Slower projectiles and wider lanes make patterns challenging but readable.
+ const s=large?Math.min(1.05+stage*.018,1.48):Math.min(.78+stage*.012,1.05);
+ const aimed=Math.atan2(player.y-cy,player.x-cx);
+ const add=(x,y,a,vxMul=1,vyMul=1,kind='boss',speed=s)=>enemyShots.push({x,y,w:large?3:2,h:large?4:3,vx:Math.cos(a)*speed*vxMul,vy:Math.sin(a)*speed*vyMul,kind,sourceId:e.id});
+ const p=e.pattern%8;
+ if(p===0){ // spaced radial burst
+   let n=large?22:14;for(let i=0;i<n;i++)add(cx,cy,i*Math.PI*2/n+frame*.012,1,1,'ring');
+ }else if(p===1){ // wider aimed fan with gaps
+   for(let lane=-2;lane<=2;lane++)for(let i=-1;i<=1;i++)add(cx,cy,aimed+lane*.27+i*.11,1,1,'fan',s*(lane===0?1.02:.82));
+ }else if(p===2){ // delayed payloads burst into a cross or a horizontal row
+   const count=large?3:2;
+   for(let i=0;i<count;i++){
+     const x=cx+(i-(count-1)/2)*(large?18:13);
+     const a=Math.atan2(player.y-cy,x===cx?player.x-cx:player.x-x);
+     enemyShots.push({x,y:cy,w:7,h:7,vx:Math.cos(a)*s*.48,vy:Math.max(.48,Math.sin(a)*s*.48),kind:'payload',sourceId:e.id,fuse:large?34:40,burstPattern:(e.shotTimer+i)%2?'row':'cross'});
+   }
+ }else if(p===3){ // open X pattern
+   let count=large?11:7;for(let i=0;i<count;i++){let off=(i-(count-1)/2)*(large?5:6);add(cx+off,cy,Math.PI/4,1,1,'xshot',s*.72);add(cx-off,cy,-Math.PI/4,1,1,'xshot',s*.72)}
+ }else if(p===4){ // broad, slow wave wall with generous gaps
+   let count=large?15:10;for(let i=0;i<count;i++){let x=cx+(i/(count-1)-.5)*e.w*.92;enemyShots.push({x,y:cy,w:2,h:4,vx:Math.sin(i*.58+frame*.1)*(large?.55:.42),vy:s*.62,kind:'wave',sourceId:e.id})}
+ }else if(p===5){ // twin rotating spiral arms, less dense
+   let arms=large?4:2;for(let arm=0;arm<arms;arm++){let a=arm*Math.PI*2/arms+frame*.065;add(cx,cy,a,1,1,'helix',s*.78)}
+ }else if(p===6){ // staggered zigzag curtain
+   let count=large?13:9;for(let i=0;i<count;i++)enemyShots.push({x:cx+(i/(count-1)-.5)*e.w*.88,y:cy,w:2,h:4,vx:(i%2?-.52:.52)*(large?1:.8),vy:s*.58,kind:'curtain',sourceId:e.id})
+ }else{ // slower orbiting shots plus a modest aimed fan
+   for(let i=0;i<(large?16:10);i++){let a=i*Math.PI*2/(large?16:10)+frame*.045;add(cx,cy,a,1,1,'orb',s*.58)}
+   for(let lane=-1;lane<=1;lane++)add(cx,cy,aimed+lane*.24,1,1,'fan',s*.85);
+ }
+ // Big ship uses a few visible payloads, not an unfair second wall of bullets.
+ if(large&&e.shotTimer%136<3){
+   for(let i=-1;i<=1;i++)enemyShots.push({x:cx+i*18,y:cy,w:8,h:8,vx:i*.18,vy:.72,kind:'payload',sourceId:e.id,fuse:42,burstPattern:i===0?'cross':'row'});
+ }
+}
+function update(){if(mode!=='playing')return;frame++;if(invuln>0)invuln--;if(keys.ArrowLeft||keys.KeyA)player.x-=player.speed;if(keys.ArrowRight||keys.KeyD)player.x+=player.speed;if(keys.ArrowUp||keys.KeyW)player.y-=player.speed;if(keys.ArrowDown||keys.KeyS)player.y+=player.speed;player.x=Math.max(12,Math.min(W-12,player.x));player.y=Math.max(H*.55,Math.min(H-8,player.y));if(player.cooldown>0)player.cooldown--;if(player.cooldown===0){bullets.push({x:player.x-5,y:player.y-13,w:3,h:9,vy:-4},{x:player.x+5,y:player.y-13,w:3,h:9,vy:-4});player.cooldown=15;sound(740,.035,'square',.018);sound(370,.045,'triangle',.008)}
+if(!enemies.length&&spawnTimer===0){spawnTimer=1;setTimeout(()=>{if(mode==='playing'&&enemies.length===0){stage++;spawnWave();hud();sound(880,.16,'triangle')}},900)}
+if(spawnTimer>0)spawnTimer++;
+for(let b of bullets)b.y+=b.vy;bullets=bullets.filter(b=>b.y>-10);
+for(let e of enemies){if(e.boss){
+ e.phase+=e.bossType==='large'?.006:.008;
+ const amp=e.bossType==='large'?27:17;
+ e.x=e.homeX+Math.sin(e.phase)*amp;
+ e.y=e.homeY+Math.sin(e.phase*1.35)*(e.bossType==='large'?3:4);
+ e.shotTimer++;
+ const interval=e.bossType==='large'?48:82;
+ if(e.shotTimer%interval===0){e.pattern=(e.pattern+1)%(e.bossType==='large'?8:6);bossPattern(e);}
+ }else{e.phase+=.035+stage*.002;e.x=e.homeX+Math.sin(e.phase)*12;e.y=e.homeY+Math.sin(e.phase*1.7)*3;if(frame%Math.max(34,95-stage*3)===0&&Math.random()<.48){let dx=player.x-e.x,dy=player.y-e.y,len=Math.hypot(dx,dy)||1;enemyShots.push({x:e.x,y:e.y+5,w:2,h:3,vx:dx/len*(.7+stage*.025),vy:dy/len*(.7+stage*.025),kind:'aim',sourceId:e.id})}}}
+// All hostile projectiles are emitted only by a living enemy/boss at that ship's muzzle. No free-floating screen spawns.
+for(let b of bullets){for(let e of enemies){if(e.hp>0&&hit(b,e)){b.y=-20;e.hp--;burst(b.x,b.y,'#5ef7ff',3);if(e.hp===0){score+=e.boss?(e.bossType==='large'?12000:3500):(e.type===0?100:e.type===1?150:200);burst(e.x,e.y,e.boss?'#fff000':['#ff4fa3','#ffe66d','#9d83ff'][e.type],e.boss?(e.bossType==='large'?70:36):12);sound(e.boss?100:230+e.type*100,e.boss?.3:.09,'square');if(e.boss){noise(.24,.045);sound(65,.35,'sawtooth',.03,.04);sound(520,.22,'square',.02,.12)}else{noise(.045,.012);sound(440+e.type*130,.055,'triangle',.014,.025)}}hud();break}}}
+enemies=enemies.filter(e=>e.hp>0&&e.y<H+20);
+const spawnedShots=[];
+for(let b of enemyShots){
+ b.x+=(b.vx||0);b.y+=b.vy;
+ if(b.kind==='payload'){
+   b.fuse--;
+   if(b.fuse<=0){
+     burst(b.x,b.y,'#fff000',10);sound(180,.07,'square',.012);
+     const n=b.burstPattern==='row'?7:5, step=b.burstPattern==='row'?Math.PI/2:Math.PI/4;
+     if(b.burstPattern==='row'){
+       for(let i=0;i<n;i++)spawnedShots.push({x:b.x+(i-(n-1)/2)*8,y:b.y,w:3,h:4,vx:0,vy:.72,kind:'burstRow',sourceId:b.sourceId});
+     }else{
+       for(let i=0;i<n;i++){const a=i*Math.PI*2/n;spawnedShots.push({x:b.x,y:b.y,w:3,h:4,vx:Math.cos(a)*.9,vy:Math.sin(a)*.9,kind:'burstCross',sourceId:b.sourceId})}
+       for(let i=0;i<4;i++){const a=i*Math.PI/2;spawnedShots.push({x:b.x,y:b.y,w:3,h:4,vx:Math.cos(a)*1.05,vy:Math.sin(a)*1.05,kind:'burstCross',sourceId:b.sourceId})}
+     }
+     b.y=H+100;continue;
+   }
+ }
+ if(invuln===0&&hit(b,player)){b.y=H+20;lives=0;burst(player.x,player.y,'#ff4fa3',18);sound(100,.2,'sawtooth');noise(.16,.03);sound(65,.28,'square',.025,.04);hud();endGame();return}
+}
+enemyShots.push(...spawnedShots);
+enemyShots=enemyShots.filter(b=>b.y<H+10&&b.y>-12&&b.x>-8&&b.x<W+8);
+for(let p of particles){p.x+=p.vx;p.y+=p.vy;p.life--}particles=particles.filter(p=>p.life>0);
+if(enemies.some(e=>e.y>H-75)){lives--;enemies=enemies.filter(e=>e.y<=H-75);hud();if(lives<=0){endGame();return}}
+}
+function rect(x,y,w,h,color){ctx.fillStyle=color;ctx.fillRect(Math.round(x-w/2),Math.round(y-h/2),w,h)}
+function drawShip(x,y){const rows=['0001000','0011100','0111110','1111111','1101011','0001000','0011100'];const scale=1;for(let r=0;r<rows.length;r++)for(let c=0;c<rows[r].length;c++)if(rows[r][c]==='1'){ctx.fillStyle=(r>=5?'#ff3434':'#f0f0f0');ctx.fillRect(Math.round(x-3+c),Math.round(y-4+r),1,1)}}
+function drawEnemy(e){
+ if(e.boss){
+   const large=e.bossType==='large';
+   // Pixel-art hulls are assembled from hard-edged blocks, not smooth vector art.
+   const scale=large?2:1;
+   const rows=large?[
+    '0000000000111111111110000000000',
+    '0000000011111111111111110000000',
+    '0000011111111111111111111110000',
+    '0001111111111111111111111111100',
+    '0011110111111111111110111111110',
+    '0111111111111111111111111111111',
+    '11111111111111111111111111111111',
+    '11111101111111111111101111111111',
+    '0111111111111111111111111111111',
+    '0011111111111111111111111111110',
+    '0001111111111111111111111111100',
+    '0000011111111111111111111110000',
+    '0000000111110000000111110000000'
+   ]:[
+    '000111111111000',
+    '001111111111100',
+    '011101111101110',
+    '111111111111111',
+    '111011111110111',
+    '011111111111110',
+    '001111111111100',
+    '000110000011000'
+   ];
+   const px=large?2:2, pixel=large?2:1;
+   const rw=rows[0].length*pixel,rh=rows.length*pixel;
+   // hull outline and inner armor
+   for(let r=0;r<rows.length;r++)for(let c=0;c<rows[r].length;c++)if(rows[r][c]==='1'){
+     let edge=r===0||r===rows.length-1||c===0||c===rows[r].length-1||rows[r-1]?.[c]!=='1'||rows[r+1]?.[c]!=='1';
+     ctx.fillStyle=edge?'#f0f0f0':(large?'#777':'#ff3434');
+     ctx.fillRect(Math.round(e.x-rw/2+c*pixel),Math.round(e.y-rh/2+r*pixel),pixel,pixel);
+   }
+   // glowing pixel engine cores and weapon ports
+   ctx.fillStyle='#fff000';
+   if(large){
+     for(let dx of [-20,-10,0,10,20])ctx.fillRect(Math.round(e.x+dx-2),Math.round(e.y+10),4,4);
+     ctx.fillStyle='#ff3434';ctx.fillRect(Math.round(e.x-25),Math.round(e.y-3),8,3);ctx.fillRect(Math.round(e.x+17),Math.round(e.y-3),8,3);
+   }else{
+     ctx.fillRect(Math.round(e.x-7),Math.round(e.y-1),3,2);ctx.fillRect(Math.round(e.x+4),Math.round(e.y-1),3,2);
+   }
+   // boss HP bar and name, visible in the playfield
+   const barW=large?104:56,barY=large?8:17;
+   ctx.fillStyle='#555';ctx.fillRect(Math.round(W/2-barW/2),barY,barW,3);
+   ctx.fillStyle=large?'#ff3434':'#fff000';ctx.fillRect(Math.round(W/2-barW/2),barY,Math.max(0,Math.round(barW*e.hp/e.maxHp)),3);
+   ctx.fillStyle='#fff';ctx.font='6px monospace';ctx.textAlign='center';
+   ctx.fillText(large?'DREADNOUGHT // CLASS Ω':'HEAVY CRUISER',W/2,barY+9);
+   return;
+ }
+ const sprites=[['0011100','0111110','1111111','1101011','0011100','0110110'],['0010100','0111110','1111111','1011101','0010100','0100010'],['0100010','0011100','0111110','1111111','1010101','0010000']];const rows=sprites[e.type%3];const colors=['#7cff00','#fff000','#ff3434'];ctx.fillStyle=colors[e.type%3];for(let r=0;r<rows.length;r++)for(let c=0;c<rows[r].length;c++)if(rows[r][c]==='1')ctx.fillRect(Math.round(e.x-3+c),Math.round(e.y-3+r),1,1)
+}
+function draw(){ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);for(let i=0;i<22;i++){let x=(i*37+11)%W,y=(i*53+Math.floor(frame*(i%3===0?.25:.08)))%H;ctx.fillStyle=i%5===0?'#aaa':'#444';ctx.fillRect(x,y,1,1)}
+if(mode==='playing'||mode==='paused'){if(invuln===0||Math.floor(frame/4)%2===0)drawShip(player.x,player.y);for(let e of enemies)drawEnemy(e);for(let b of bullets)rect(b.x,b.y,1,3,'#fff');for(let b of enemyShots){if(b.kind==='payload'){rect(b.x,b.y,8,8,'#fff');rect(b.x,b.y,4,4,'#ff3434');if(b.fuse<12&&frame%4<2)rect(b.x,b.y,10,10,'#fff000')}else rect(b.x,b.y,(b.kind==='boss'||b.kind==='heavy')?3:2,(b.kind==='boss'||b.kind==='heavy')?4:3,['ring','orb'].includes(b.kind)?'#fff000':b.kind==='helix'?'#ff4fa3':b.kind==='curtain'?'#7cff00':b.kind==='wave'?'#7cff00':b.kind==='cross'?'#fff':b.kind==='xshot'?'#ffb000':b.kind==='burstCross'?'#fff000':b.kind==='burstRow'?'#7cff00':'#ff3434')}for(let p of particles){if(p.life%3===0)rect(p.x,p.y,1,1,p.color)}if(mode==='paused'){ctx.fillStyle='#000';ctx.fillRect(55,116,114,24);ctx.fillStyle='#fff';ctx.font='bold 12px monospace';ctx.textAlign='center';ctx.fillText('PAUSED',W/2,132)}}else{for(let i=0;i<5;i++){let x=42+i*35,y=78+Math.sin(frame*.025+i)*3;drawEnemy({x,y,type:i%3})}drawShip(W/2,H-46);ctx.fillStyle='#fff';ctx.font='8px monospace';ctx.textAlign='center';ctx.fillText('INSERT COIN',W/2,H-22)}}
+function loop(){update();draw();requestAnimationFrame(loop)}
+$('startBtn').addEventListener('click',()=>{if(mode==='paused')return;reset()});
+$('musicBtn').addEventListener('click',()=>{musicEnabled=!musicEnabled;if(musicEnabled)startMusic();updateSoundButtons()});$('sfxBtn').addEventListener('click',()=>{sfxEnabled=!sfxEnabled;updateSoundButtons();if(sfxEnabled)sound(660,.06,'square',.02)});updateSoundButtons();
+document.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Space'].includes(e.code))e.preventDefault();if(e.code==='KeyM'){muted=!muted;if(!muted&&mode==='playing')startMusic();return}if(e.code==='KeyP'&&mode==='playing'){mode='paused';return}else if(e.code==='KeyP'&&mode==='paused'){mode='playing';startMusic();return}if((e.code==='Enter'||e.code==='Space')&&(mode==='menu'||mode==='over')){reset();return}keys[e.code]=true});document.addEventListener('keyup',e=>keys[e.code]=false);document.querySelectorAll('[data-key]').forEach(btn=>{let k=btn.dataset.key;const down=e=>{e.preventDefault();keys[k]=true;if(k==='Space'&&mode!=='playing')reset()};const up=e=>{e.preventDefault();keys[k]=false};btn.addEventListener('pointerdown',down);btn.addEventListener('pointerup',up);btn.addEventListener('pointerleave',up);btn.addEventListener('pointercancel',up)});
+// Touch/mouse drag movement on the playfield. Auto-fire remains active while moving.
+let dragging=false;
+function movePlayerToPointer(e){if(!player||mode!=='playing')return;const r=canvas.getBoundingClientRect();const px=(e.clientX-r.left)/r.width*W;const py=(e.clientY-r.top)/r.height*H;player.x=Math.max(12,Math.min(W-12,px));player.y=Math.max(H*.55,Math.min(H-8,py));}
+canvas.addEventListener('pointerdown',e=>{if(mode!=='playing')return;dragging=true;if(canvas.setPointerCapture)canvas.setPointerCapture(e.pointerId);movePlayerToPointer(e);e.preventDefault()});
+canvas.addEventListener('pointermove',e=>{if(dragging){movePlayerToPointer(e);e.preventDefault()}});
+canvas.addEventListener('pointerup',()=>dragging=false);
+canvas.addEventListener('pointercancel',()=>dragging=false);
+
+// Prevent stuck keys when the browser loses focus.
+window.addEventListener('blur',()=>keys={});spawnWave();enemies=[];mode='menu';loop();
+})();
+</script></body></html>
